@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import me.chaejungmin.blogproject.domain.Article;
 import me.chaejungmin.blogproject.dto.ArticleResponseDto;
 import me.chaejungmin.blogproject.dto.CreateArticleRequestDto;
-import me.chaejungmin.blogproject.dto.UpdateArticleRequest;
+import me.chaejungmin.blogproject.dto.UpdateArticleRequestDto;
 import me.chaejungmin.blogproject.service.BlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,8 +44,9 @@ public class BlogApiController {
         return ResponseEntity.ok().build();
     }
 
+
     @PutMapping("/api/articles/{id}")
-    public ResponseEntity<ArticleResponseDto> updateArticle(@PathVariable Long id, @RequestBody UpdateArticleRequest requestDto) {
+    public ResponseEntity<ArticleResponseDto> updateArticle(@PathVariable Long id, @RequestBody UpdateArticleRequestDto requestDto) {
         Article updatedArticle = blogService.updateById(id, requestDto);
         return ResponseEntity.ok().body(new ArticleResponseDto(updatedArticle));
     }
